@@ -18,5 +18,5 @@ dbConnection.connect(function(err) {
   }
 });
 module.exports = dbConnection;
-// exports.query = dbConnection.query.bind(dbConnection);
+// exports.query = dbConnection.query.binds(dbConnection);
 
