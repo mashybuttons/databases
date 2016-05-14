@@ -1,21 +1,23 @@
 -- CREATE DATABASE chat;
-CREATE DATABASE chat;
+-- CREATE DATABASE chat;
 
 USE chat;
 
-CREATE TABLE IF NOT EXISTS rooms (
+CREATE TABLE rooms (
   room_id int (10) NOT NULL AUTO_INCREMENT,
   name VARCHAR(20) NOT NULL,
-  PRIMARY KEY (room_id)
+  PRIMARY KEY (room_id),
+  UNIQUE KEY (name)
 );
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
   user_id int (10) NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20),
-  PRIMARY KEY (user_id)
+  name VARCHAR(20) NOT NULL,
+  PRIMARY KEY (user_id),
+  UNIQUE KEY (name)
 );
 
-CREATE TABLE IF NOT EXISTS messages (
+CREATE TABLE messages (
   /* Describe your table here.*/
 
   message_id INT (10) NOT NULL AUTO_INCREMENT,

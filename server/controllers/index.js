@@ -8,23 +8,31 @@ module.exports = {
 
 
     }, // a function which handles a get request for all messages
-    post: function (req, res, callback) {
+    post: function (req, res) {
+
       console.log('-----------------MES POST');
-      models.messages.post(req.body, callback);
+      var body = '';
+      req.on('data', function(chunk) {
+        body += chunk;
+      }).on('end', function() {
+        console.log(body);
+        models.messages.post(body);
+      });
+
+
     } // a function which handles posting a message to the database
   },
 
   users: {
     // Ditto as above
-    get: function (req, res, callback) {
+    get: function (req, res) {
       console.log('-----------------USER GET');
-      console.log('users get: ', req.body);
-      console.log(req.body);
-      models.users.get(req.body, res, callback);
+ 
+      models.users.get(req.body, res);
     },
-    post: function (req, res, callback) {
+    post: function (req, res) {
       console.log('-----------------USER POST');
-      models.users.post(req.body, callback);
+      models.users.post(req.body);
       //pass down the data to the model 
     }
   }
