@@ -6,7 +6,7 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (req, res) {
-      db.query('SELECT * FROM messages', function (err, result, field) {
+      db.query('select messages.message as text, users.name as username, rooms.name as roomname from messages inner join users on users.user_id  = messages.user_id inner join rooms on messages.room_id = rooms.room_id', function (err, result, field) {
         if (err) {
           console.log('ERR ', err);
         }
@@ -38,7 +38,6 @@ module.exports = {
         if (err) {
           console.log('IM AN ERROR', err); 
         }
-        console.log('users query finished');
       });
 
     }
@@ -53,7 +52,6 @@ module.exports = {
         if (err) {
           console.log('IM AN ERROR', err); 
         }
-        console.log('room query finished');
       });
 
 

@@ -38,8 +38,9 @@ let app = {
      // data: {order: '-createdAt'},
       dataType: 'json',
       success(data) {
+        data = data.reverse();
         console.log('success:', data);
-        callback(data.result, optionalStr);
+        callback(data, optionalStr);
       }
     });
   },
