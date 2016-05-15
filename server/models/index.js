@@ -1,5 +1,6 @@
 var Promises = require('bluebird');
 var db = require('../db');
+var Sequelize = require('sequelize');
 // Promise.promisifyAll(db);
 // var dbConnection = db.dbConnection;
 
@@ -12,13 +13,19 @@ module.exports = {
         }
         res.send(JSON.stringify(result));
       });
+
+
     }, // a function which produces all the messages
     post: function (data) {
       data = JSON.parse(data);
       module.exports.users.post(data);
       module.exports.rooms.post(data);
 
-
+      // db.Message.sync().then(function() {
+      //   return Message.create({
+      //     message: data.text,
+      //   });
+      // });
       db.query('INSERT INTO messages (message, user_id, room_id) values ("' + data.text + '", (select user_id from users where name = "' + data.username + '"), (select room_id from rooms where name = "' + data.roomname + '"))', function (err, results) { 
         if (err) {
           console.log(err);
@@ -34,6 +41,11 @@ module.exports = {
     get: function () {},
     post: function (data) {
 
+      // db.User.sync().then(function() {
+      //   return User.create({
+      //     name: data.username
+      //   });
+      // });
       db.query('INSERT IGNORE INTO users (name) values (' + '"' + data.username + '"' + ')', function (err) { 
         if (err) {
           console.log('IM AN ERROR', err); 
